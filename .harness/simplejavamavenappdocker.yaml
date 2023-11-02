@@ -26,7 +26,12 @@ pipeline:
                     connectorRef: AwsEKSDocker
                     image: alpine
                     shell: Sh
-                    command: docker --version
+                    command: |-
+                      FROM ubuntu:20.04
+                      RUN apt-get update \
+                          && apt-get install -y --no-install-recommends mysql-client \
+                          && rm -rf /var/lib/apt/lists/*
+                      ENTRYPOINT ["mysql"]
           platform:
             os: Linux
             arch: Amd64
