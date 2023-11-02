@@ -23,12 +23,22 @@ pipeline:
                   name: docker-build
                   identifier: dockerbuild
                   spec:
-                    connectorRef: AwsEKSDocker
+                    connectorRef: account.harnessImage
                     repo: awseksharness/awseks_harness
                     tags:
                       - latest
                     dockerfile: Dockerfile
                     context: .
+              - step:
+                  type: Plugin
+                  name: buildah
+                  identifier: buildah
+                  spec:
+                    connectorRef: account.harnessImage
+                    image: buildah/buildah
+                    settings:
+                      Dockerfile: Dockerfile
+                      context_path: .
           platform:
             os: Linux
             arch: Amd64
