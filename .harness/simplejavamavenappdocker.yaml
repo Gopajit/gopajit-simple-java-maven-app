@@ -24,7 +24,7 @@ pipeline:
                   identifier: dockerbuild
                   spec:
                     connectorRef: AwsEKSDocker
-                    repo: awseksharness / awseks_harness
+                    repo: awseksharness/awseks_harness
                     tags:
                       - <+pipeline.sequenceId>
                     dockerfile: Dockerfile
