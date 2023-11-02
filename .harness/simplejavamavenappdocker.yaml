@@ -19,19 +19,16 @@ pipeline:
           execution:
             steps:
               - step:
-                  type: Run
-                  name: docker-step
-                  identifier: dockerstep
+                  type: BuildAndPushDockerRegistry
+                  name: build-docker
+                  identifier: builddocker
                   spec:
                     connectorRef: AwsEKSDocker
-                    image: alpine
-                    shell: Sh
-                    command: |-
-                      FROM ubuntu:20.04
-                      RUN apt-get update \
-                          && apt-get install -y --no-install-recommends mysql-client \
-                          && rm -rf /var/lib/apt/lists/*
-                      ENTRYPOINT ["mysql"]
+                    repo: awseksharness/awseks_harness
+                    tags:
+                      - <+pipeline.sequenceId>
+                    dockerfile: Dockerifle
+                    context: .
           platform:
             os: Linux
             arch: Amd64
