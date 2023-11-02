@@ -19,16 +19,21 @@ pipeline:
           execution:
             steps:
               - step:
-                  type: BuildAndPushDockerRegistry
-                  name: build-docker
-                  identifier: builddocker
+                  type: Plugin
+                  name: buildah-docker
+                  identifier: buildahdocker
                   spec:
                     connectorRef: AwsEKSDocker
-                    repo: awseksharness/awseks_harness
-                    tags:
-                      - <+pipeline.sequenceId>
-                    dockerfile: Dockerfile
-                    context: .
+                    image: plugins/buildah-docker:1.1.0-linux-amd64
+                    privileged: false
+                    settings:
+                      repo: awseksharness/awseks_harness
+                      tags: <+pipeline.sequenceId>
+                      registry: https://index.docker.io/v2/
+                      dockerfile: Dockerfile
+                      username: <+secrets.getValue("DOCKER_HUB_USER")>
+                      password: <+secrets.getValue("DOCKER_HUB_SECRET")>
+                  runAsUser: "1000"
           platform:
             os: Linux
             arch: Amd64
