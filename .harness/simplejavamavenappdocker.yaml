@@ -25,7 +25,6 @@ pipeline:
                   spec:
                     connectorRef: AwsEKSDocker
                     image: plugins/buildah-docker:1.1.0-linux-amd64
-                    privileged: false
                     settings:
                       repo: awseksharness/awseks_harness
                       tags: <+pipeline.sequenceId>
