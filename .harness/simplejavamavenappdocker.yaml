@@ -19,17 +19,14 @@ pipeline:
           execution:
             steps:
               - step:
-                  type: BuildAndPushDockerRegistry
-                  name: docker-build
-                  identifier: dockerbuild
+                  type: Run
+                  name: docker-step
+                  identifier: dockerstep
                   spec:
                     connectorRef: AwsEKSDocker
-                    repo: awseksharness/awseks_harness
-                    tags:
-                      - latest
-                    dockerfile: Dockerfile
-                    context: .
-                    runAsUser: "10000"
+                    image: alpine
+                    shell: Sh
+                    command: docker --version
           platform:
             os: Linux
             arch: Amd64
