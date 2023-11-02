@@ -27,7 +27,7 @@ pipeline:
                     repo: awseksharness/awseks_harness
                     tags:
                       - <+pipeline.sequenceId>
-                    dockerfile: Dockerifle
+                    dockerfile: Dockerfile
                     context: .
           platform:
             os: Linux
