@@ -1,65 +1,68 @@
----
 pipeline:
-  projectIdentifier: "simplejavamavenappharness"
-  orgIdentifier: "default"
+  projectIdentifier: simplejavamavenappharness
+  orgIdentifier: default
   tags: {}
   properties:
     ci:
       codebase:
-        connectorRef: "AwsEKSGithub"
-        repoName: "simple-java-maven-app"
-        build: "<+input>"
+        connectorRef: AwsEKSGithub
+        repoName: simple-java-maven-app
+        build: <+input>
   stages:
-  - stage:
-      name: "build"
-      identifier: "build"
-      description: ""
-      type: "CI"
-      spec:
-        cloneCodebase: true
-        platform:
-          os: "Linux"
-          arch: "Amd64"
-        runtime:
-          type: "Cloud"
-          spec: {}
-        execution:
-          steps:
-          - step:
-              type: "Run"
-              name: "maven-build"
-              identifier: "mavenbuild"
-              spec:
-                shell: "Sh"
-                command: "mvn clean install"
-  - stage:
-      name: "test"
-      identifier: "test"
-      description: ""
-      type: "CI"
-      spec:
-        cloneCodebase: true
-        platform:
-          os: "Linux"
-          arch: "Amd64"
-        runtime:
-          type: "Cloud"
-          spec: {}
-        execution:
-          steps:
-          - step:
-              type: "RunTests"
-              name: "maven test"
-              identifier: "maven_test"
-              spec:
-                language: "Java"
-                buildTool: "Maven"
-                args: "clean test"
-                runOnlySelectedTests: true
-                reports:
-                  type: "JUnit"
+    - stage:
+        name: build
+        identifier: build
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          execution:
+            steps:
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: docker-build
+                  identifier: dockerbuild
                   spec:
-                    paths:
-                    - "**/**/*.xml"
-  identifier: "simplejavamavenappdocker"
-  name: "simple-java-maven-app-docker"
+                    connectorRef: AwsEKSDocker
+                    repo: awseksharness / awseks_harness
+                    tags:
+                      - <+pipeline.sequenceId>
+                    dockerfile: Dockerfile
+                    context: .
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+    - stage:
+        name: test
+        identifier: test
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: RunTests
+                  name: maven test
+                  identifier: maven_test
+                  spec:
+                    language: Java
+                    buildTool: Maven
+                    args: clean test
+                    runOnlySelectedTests: true
+                    reports:
+                      type: JUnit
+                      spec:
+                        paths:
+                          - "**/**/*.xml"
+  identifier: simplejavamavenappdocker
+  name: simple-java-maven-app-docker
