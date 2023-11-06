@@ -1,0 +1,73 @@
+pipeline:
+  projectIdentifier: simplejavamavenappharness
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: AwsEKSGithub
+        repoName: simple-java-maven-app
+        build: <+input>
+  stages:
+    - stage:
+        name: build
+        identifier: build
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          execution:
+            steps:
+              - step:
+                  type: Plugin
+                  name: buildah-docker
+                  identifier: buildahdocker
+                  spec:
+                    connectorRef: AwsEKSDocker
+                    image: plugins/buildah-docker:1.1.0-linux-amd64
+                    privileged: true
+                    settings:
+                      repo: awseksharness/awseks_harness
+                      tags: <+pipeline.sequenceId>
+                      registry: https://index.docker.io/v2/
+                      dockerfile: Dockerfile
+                      username: <+secrets.getValue("DOCKER_HUB_USER")>
+                      password: <+secrets.getValue("DOCKER_HUB_SECRET")>
+                  runAsUser: "1000"
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+    - stage:
+        name: test
+        identifier: test
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: RunTests
+                  name: maven test
+                  identifier: maven_test
+                  spec:
+                    language: Java
+                    buildTool: Maven
+                    args: clean test
+                    runOnlySelectedTests: true
+                    reports:
+                      type: JUnit
+                      spec:
+                        paths:
+                          - "**/**/*.xml"
+  identifier: simplejavamavenappdocker
+  name: simple-java-maven-app-docker
