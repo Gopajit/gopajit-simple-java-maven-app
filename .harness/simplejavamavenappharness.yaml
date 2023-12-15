@@ -69,32 +69,5 @@ pipeline:
                       spec:
                         paths:
                           - "**/**/*.xml"
-    - stage:
-        name: security
-        identifier: security
-        description: ""
-        type: SecurityTests
-        spec:
-          cloneCodebase: true
-          platform:
-            os: Linux
-            arch: Amd64
-          runtime:
-            type: Cloud
-            spec: {}
-          execution:
-            steps:
-              - step:
-                  type: Security
-                  name: security-test
-                  identifier: securitytest
-                  spec:
-                    privileged: true
-                    settings:
-                      policy_type: orchestratedScan
-                      scan_type: repository
-                      product_name: aqua-trivy
-                      product_config_name: aqua-trivy
-                    imagePullPolicy: Always
   identifier: simplejavamavenappdocker
   name: simple-java-maven-app-docker
