@@ -41,8 +41,3 @@ pipeline:
                         paths:
                           - "**/*.xml"
                     enableTestSplitting: false
-              - step:
-                  type: Plugin
-                  name: Plugin_1
-                  identifier: Plugin_1
-                  spec: {}
