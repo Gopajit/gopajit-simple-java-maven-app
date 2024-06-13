@@ -7,7 +7,7 @@ pipeline:
   properties:
     ci:
       codebase:
-        connectorRef: GopajitGitHubConnector
+        connectorRef: gopajitgithubconnector
         repoName: gopajit-simple-java-maven-app
         build: <+input>
   stages:
@@ -41,3 +41,8 @@ pipeline:
                         paths:
                           - "**/*.xml"
                     enableTestSplitting: false
+              - step:
+                  type: Plugin
+                  name: Plugin_1
+                  identifier: Plugin_1
+                  spec: {}
