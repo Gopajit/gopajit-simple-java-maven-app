@@ -27,6 +27,17 @@ pipeline:
           execution:
             steps:
               - step:
+                  type: BuildAndPushDockerRegistry
+                  name: build-image-docker
+                  identifier: buildimagedocker
+                  spec:
+                    connectorRef: gopajitdockerconnector
+                    repo: gopajitmalakar/harness-build
+                    tags:
+                      - "1.0"
+                    dockerfile: Dockerfile
+                    context: .
+              - step:
                   type: RunTests
                   name: run-test
                   identifier: runtest
