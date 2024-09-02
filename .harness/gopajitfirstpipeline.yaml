@@ -34,7 +34,7 @@ pipeline:
                     connectorRef: gopajitdockerconnector
                     repo: gopajitmalakar/harness-build
                     tags:
-                      - "1.0"
+                      - <+pipeline.sequenceId>
                     dockerfile: Dockerfile
                     context: .
               - step:
