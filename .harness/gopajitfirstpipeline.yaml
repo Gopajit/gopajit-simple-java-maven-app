@@ -32,7 +32,7 @@ pipeline:
                   identifier: buildimagedocker
                   spec:
                     connectorRef: gopajitdockerconnector
-                    repo: gopajitmalakar/harness-build
+                    repo: <+account.identifier>/<+pipeline.name>
                     tags:
                       - <+pipeline.sequenceId>
                     dockerfile: Dockerfile
