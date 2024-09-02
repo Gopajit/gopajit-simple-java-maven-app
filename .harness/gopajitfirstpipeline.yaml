@@ -32,7 +32,7 @@ pipeline:
                   identifier: buildimagedocker
                   spec:
                     connectorRef: gopajitdockerconnector
-                    repo: <+account.identifier>/<+pipeline.name>
+                    repo: <+account.name>/<+pipeline.name>
                     tags:
                       - <+pipeline.sequenceId>
                     dockerfile: Dockerfile
