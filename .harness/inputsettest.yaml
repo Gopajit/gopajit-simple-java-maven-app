@@ -1,0 +1,14 @@
+inputSet:
+  name: input-set-test
+  identifier: inputsettest
+  orgIdentifier: default
+  projectIdentifier: GopajitFirstProject
+  pipeline:
+    identifier: gopajitfirstpipeline
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: harness
