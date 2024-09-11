@@ -6,8 +6,8 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-#name: Java CI with Maven using Github-Actions
-
+name: Java CI with Maven using Github-Actions
+run-name: ${{github.actor}} is trying to learn Github-Actions
 on:
   push:
     branches: [ "github-actions" ]
