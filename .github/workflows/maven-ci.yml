@@ -8,14 +8,14 @@ on:
     branches:
       - github-actions
 jobs:
-  build:
-    needs: setup
+  Build_Code:
+    needs: Setup_Java
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-  setup:
+  Setup_Java:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -25,8 +25,8 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-  test:
-    needs: build
+  Test_Code:
+    needs: Build_Code
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
