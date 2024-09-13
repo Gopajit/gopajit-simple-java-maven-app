@@ -33,7 +33,7 @@ jobs:
     - name: Maven test
       run: mvn -B test --file pom.xml
   Harness_deployment:
-    needs: Build_Code
+    needs: Test_Code
     runs-on: ubuntu-latest
     steps:
     - name: Harness Deploy Action
