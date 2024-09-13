@@ -1,4 +1,3 @@
-# .github/workflows/build.yml
 name: Node Build
 run-name: ${{github.actor}} is learning GitHub Actions
 on:
