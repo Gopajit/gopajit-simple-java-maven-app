@@ -1,7 +1,13 @@
 # .github/workflows/build.yml
 name: Node Build
 run-name: {{ github.actor }} is testing workflow for node js
-on: [push]
+on:
+  push:
+    branches:
+      - github-actions
+  pull_request:
+    branches:
+      - github-actions
 jobs:
   build:
     runs-on: ${{ matrix.os }}
