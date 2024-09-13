@@ -1,6 +1,12 @@
 name: Node Build
 run-name: ${{github.actor}} is learning GitHub Actions
-on: [workflow_dispatch]
+on:
+  push:
+    branches:
+      - github-actions
+  pull_request:
+    branches:
+      - github-actions
 jobs:
   build:
     runs-on: ${{ matrix.os }}
