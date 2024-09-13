@@ -32,3 +32,14 @@ jobs:
     - uses: actions/checkout@v4
     - name: Maven test
       run: mvn -B test --file pom.xml
+  Harness_deployment:
+    needs: Build_Code
+    runs-on: ubuntu-latest
+    steps:
+    - name: Harness Deploy Action
+      uses: fac/harness-deploy-action@v1.0
+      with:
+        webhookurl: na
+        application: na
+        services: harness_application
+        version: 1.0
