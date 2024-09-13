@@ -1,6 +1,6 @@
 # .github/workflows/build.yml
 name: Node Build
-run-name: ${{github.actor}} is leanring GitHub Actions
+run-name: ${{github.actor}} is learning GitHub Actions
 on:
   push:
     branches:
