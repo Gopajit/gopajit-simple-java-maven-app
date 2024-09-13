@@ -1,0 +1,14 @@
+inputSet:
+  name: git-action-inputset
+  identifier: gitactioninputset
+  orgIdentifier: default
+  projectIdentifier: GopajitFirstProject
+  pipeline:
+    identifier: gopajitfirstpipeline
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
